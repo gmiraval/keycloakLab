@@ -46,7 +46,16 @@ spec:
           containerPort: 8080
         - name: https
           containerPort: 8443
+        volumeMounts:
+        - mountPath: /opt/jboss/keycloak/standalone/data
+          name: keycloak
         readinessProbe:
           httpGet:
             path: /auth/realms/master
             port: 8080
+      volumes:
+      - name: keycloak
+        persistentVolumeClaim:
+          claimName: keycloak-pvc
+
+
